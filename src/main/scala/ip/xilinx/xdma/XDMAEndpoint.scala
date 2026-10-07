@@ -8,7 +8,7 @@ import java.nio.file.{Files, Paths}
 
 /** Exact flat port declaration for the user's Vivado 2023.1 XDMA 4.1 rev.23 VEO.
   *
-  * Fixed configuration: VCU118, DMA Endpoint, Gen3 x8, AXI-MM 256/64/4 bits,
+  * Fixed configuration: VCU118, DMA Endpoint, Gen2 x8, AXI-MM 256/64/4 bits,
   * one H2C and one C2H channel, AXI-Lite 32-bit user control, one user IRQ.
   * Regenerate and compare the VEO before changing this configuration.
   * Directions are relative to the AMD IP, including AXI ready/response inputs.
@@ -134,11 +134,11 @@ if {![string match -nocase *Endpoint* [get_property CONFIG.device_port_type $xdm
 set xdma_ep_requested {
     CONFIG.ref_clk_freq 100_MHz
     CONFIG.pl_link_cap_max_link_width X8
-    CONFIG.pl_link_cap_max_link_speed 8.0_GT/s
+    CONFIG.pl_link_cap_max_link_speed 5.0_GT/s
     CONFIG.axi_data_width 256_bit
     CONFIG.axi_addr_width 64
     CONFIG.axi_id_width 4
-    CONFIG.axisten_freq 250
+    CONFIG.axisten_freq 125
     CONFIG.xdma_axi_intf_mm AXI_Memory_Mapped
     CONFIG.xdma_rnum_chnl 1
     CONFIG.xdma_wnum_chnl 1
@@ -168,7 +168,8 @@ set xdma_ep_expected_defaults {
     CONFIG.axilite_master_scale Megabytes
     CONFIG.axilite_master_size 1
     CONFIG.vendor_id 10EE
-    CONFIG.pf0_device_id 9038
+    CONFIG.pf0_device_id 9028
+    CONFIG.coreclk_freq 250
 }
 foreach {xdma_ep_key xdma_ep_wanted} [concat $xdma_ep_placement $xdma_ep_requested $xdma_ep_expected_defaults] {
     set xdma_ep_actual [get_property $xdma_ep_key $xdma_ep_ip]

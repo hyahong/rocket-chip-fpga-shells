@@ -168,7 +168,7 @@ class vcu118mig(depth : BigInt)(implicit val p:Parameters) extends BlackBox
       CONFIG.SET_DW_TO_40                         {false} \
       CONFIG.System_Clock                         {No_Buffer} \
       CONFIG.TIMING_3DS                           {false} \
-      CONFIG.TIMING_OP1                           {false} \
+      CONFIG.TIMING_OP1                           {true} \
       CONFIG.TIMING_OP2                           {false} \
       ] [get_ips vcu118mig]"""
   )
